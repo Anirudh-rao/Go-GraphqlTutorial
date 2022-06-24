@@ -2,27 +2,44 @@
 #
 # https://gqlgen.com/getting-started/
 
-type Todo {
+#Link and User Schema for Client User and Link
+type Link {
   id: ID!
-  text: String!
-  done: Boolean!
+  title: String!
+  adddress: String!
   user: User!
 }
-
-type User {
+type User{
   id: ID!
   name: String!
 }
-
-type Query {
-  todos: [Todo!]!
+#Query to Return a List Of Links
+type Query{
+  links: [Link!]!
 }
-
-input NewTodo {
-  text: String!
-  userId: String!
+#To Create NewLinks
+input NewLink{
+  title: String!
+  adddress: String!
 }
-
-type Mutation {
-  createTodo(input: NewTodo!): Todo!
+input RefreshTokenInput{
+  token: String!
+}
+#For New User
+input NewUser {
+  username: String!
+  password: String!
+}
+#for Attempting to Create Login
+input Login{
+  username: String!
+  password: String!
+}
+#Mutation for Creating a New Links
+type Mutation{
+  createLink(input:NewLink!): Link!
+  createuser(input:NewUser): String!
+  login(input:Login!): String!
+  #we'll talk about this in authentication section
+  refreshToken(input: RefreshTokenInput!): String!
 }
